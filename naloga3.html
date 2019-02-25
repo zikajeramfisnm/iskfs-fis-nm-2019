@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<meta charset = utf8>
+<html>
+
+<head>
+    <title>Primer s tipko</title>
+    
+</head>
+
+<body>
+
+
+<div id="green"></div>
+<div id="divZaIzpis"></div>
+
+
+<br>
+
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+
+<script type="text/javascript">
+"use strict"; // za uporabo razredov ("class")
+
+var divZaIzpis = document.getElementById("divZaIzpis");
+var BoardDiv = document.getElementById("green");
+// spremenljivka za izpis sporočil
+
+function log(sporočilo) {
+    return "<div>" + sporočilo + "</div>";
+}
+
+divZaIzpis.innerHTML += log("Pritisnite tipko na vezju");
+
+var socket = io.connect("192.168.1.203:8080"); // povezava preko vtičnika
+
+socket.on("sporočiloKlientu", function (sporočilo){
+    if (sporočilo == 0)
+        BoardDiv.id="green";
+    if (sporočilo ==1)
+        BoardDiv.id="red";
+    divZaIzpis.innerHTML += log(sporočilo); // dodamo sporočilo
+});
+
+</script>
+    
+</body>
+    
+</html>
+
+<style>
+    #red{
+        background-color: red;
+        width: 100px;
+        height: 80px;
+        border-style: dashed;
+        border-color: black;
+    }
+
+    #green{
+        background-color: green;
+        width: 100px;
+        height: 80px;
+        border-style: dashed;
+        border-color: black;
+
+}
+    
+</style>

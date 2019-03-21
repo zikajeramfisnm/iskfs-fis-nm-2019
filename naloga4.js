@@ -28,7 +28,7 @@ function handler(req, res) {
     })
 }
 
-var želenaVrednost = 0; // želena vrednost nastavljena s pot.
+var zelenaVrednost = 0; // želena vrednost nastavljena s pot.
 var dejanskaVrednost = 0; // dejanska vrednost nastavljena s pot.
 
 http.listen(8080); // strežnik bo poslušal na vratih 8080
@@ -36,20 +36,20 @@ http.listen(8080); // strežnik bo poslušal na vratih 8080
 board.on("ready", function() {
     
     board.analogRead(0, function(value){
-        želenaVrednost = value; // zvezno branje analogne nožice 0
-        if(želenaVrednost >= 486 && želenaVrednost <= 538)
+        zelenaVrednost = value; // zvezno branje analogne nožice 0
+        if(zelenaVrednost >= 486 && zelenaVrednost <= 538)
         {
             board.digitalWrite(11, board.HIGH)
             board.digitalWrite(13, board.LOW)
             board.digitalWrite(9, board.LOW)
         }
-        if (želenaVrednost < 486)
+        if (zelenaVrednost < 486)
         {
             board.digitalWrite(13, board.HIGH)
             board.digitalWrite(11, board.LOW)
             board.digitalWrite(9, board.LOW)
         }
-        if (želenaVrednost > 538)
+        if (zelenaVrednost > 538)
         {
             board.digitalWrite(9, board.HIGH)
             board.digitalWrite(11, board.LOW)
@@ -71,7 +71,7 @@ board.on("ready", function() {
 function sendValues (socket) {
     socket.emit("klientBeriVrednosti",
     {
-    "želenaVrednost": želenaVrednost,
+    "zelenaVrednost": zelenaVrednost,
     "dejanskaVrednost": dejanskaVrednost
     });
 };
